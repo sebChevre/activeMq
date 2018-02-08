@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/activemqnode1/activemqnode1.iml" filepath="$PROJECT_DIR$/activemqnode1/activemqnode1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activemqnode2/activemqnode2.iml" filepath="$PROJECT_DIR$/activemqnode2/activemqnode2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/activemqplayground.iml" filepath="$PROJECT_DIR$/activemqplayground.iml" />
+    </modules>
+  </component>
+</project>
