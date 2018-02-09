@@ -1,14 +1,14 @@
 package ch.globaz.activemqplayground.node1.helloworld;
 
+import ch.globaz.activemqplayground.node1.util.JmsMessage;
+import ch.globaz.activemqplayground.node1.util.JmsUtil;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
-import java.util.Date;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadPoolExecutor;
 
-public class JMSProducteur {
+public class JMSQueueProducteur {
 
     private final static String BROKER_URL = "tcp://localhost:61616";
     private final static String QUEUE_EACH_10_SECONDS = "SECONDS.10";
@@ -30,19 +30,21 @@ public class JMSProducteur {
         producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
 
-
-
         Executor service = Executors.newFixedThreadPool(1);
 
         service.execute(() -> {
 
+            int cpt = 1;
+
             while(true){
-                sendMessage(session, producer);
+                String message = new JmsMessage("Message n°" + cpt,JMSQueueProducteur.class.getName()).asJsonString();
+                JmsUtil.sendMessage(session, producer,message);
                 try {
                     Thread.sleep(10000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                cpt++;
             }
         });
 
@@ -50,17 +52,5 @@ public class JMSProducteur {
 
     }
 
-    private static void sendMessage(Session session, MessageProducer producer) {
-        // Create a messages
-        String text = "Message From: " + Thread.currentThread().getName() + ", time:" + new Date().getTime();
-        TextMessage message = null;
-        try {
-            message = session.createTextMessage(text);
-            // Tell the producer to send the message
-            System.out.println("Sent message: "+ message.hashCode() + " : " + Thread.currentThread().getName());
-            producer.send(message);
-        } catch (JMSException e) {
-            e.printStackTrace();
-        }
-    }
+
 }

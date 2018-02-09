@@ -24,6 +24,12 @@
 .idea/misc.xml
 .idea/modules.xml
 
+activemqnode1/target/**
+activemqnode2/target/**
+
+activemqnode1/activemqnode1.iml
+activemqnode2/activemqnode2.iml
+
 # CMake
 cmake-build-debug/
 cmake-build-release/
